@@ -16,9 +16,9 @@ export function Navbar() {
         <button className="p-2 hover:bg-accent rounded-full ">
           <Heart />
         </button>
-        <button className="p-2 hover:bg-accent rounded-full ">
+        <Link href="/cart"  className="p-2 hover:bg-accent rounded-full ">
           <ShoppingCart />
-        </button>
+      </Link>
       </div>
     </header>
   );

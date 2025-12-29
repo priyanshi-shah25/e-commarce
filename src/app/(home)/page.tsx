@@ -4,13 +4,18 @@ import { Star } from "lucide-react"; // Make sure you have lucide-react installe
 import type { Product, Rating } from "@types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProduct } from "@/lib/api";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCartStore } from "@/store/product.strore";
+
 
 export default function Home() {
+  const router = useRouter();
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProduct,
   });
+
+  const addToCart = useCartStore((state) => state.addToCart);
   const searchParams = useSearchParams();
    const selectedCategory = searchParams.get("category");
   const maxPriceParam = searchParams.get("maxPrice");
@@ -35,6 +40,11 @@ export default function Home() {
     }
     return true;
   });
+
+   const handleAddToCart = (product: Product) => {
+    addToCart(product);       
+    router.push("/cart");    
+  };
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Featured Products</h1>
@@ -66,7 +76,7 @@ export default function Home() {
 
               <div className="mt-2 flex items-center justify-between pt-4">
                 <span className="text-xl font-bold">${product.price}</span>
-                <button className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800 ">
+                <button  onClick={() => handleAddToCart(product)}className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800 ">
                   Add to Cart
                 </button>
               </div>

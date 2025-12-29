@@ -1,2 +1,9 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { CartState } from "@/types/product";
+
+export const useCartStore = create<CartState>((set) => ({
+  cart: [],
+  addToCart: (product) => set((state) => ({ 
+    cart: [...state.cart, product] 
+  })),
+}));

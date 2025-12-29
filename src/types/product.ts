@@ -12,3 +12,8 @@ export interface Product {
   image: string;
   rating: Rating;
 }
+
+export interface CartState {
+  cart: Product[];
+  addToCart: (product: Product) => void;
+}

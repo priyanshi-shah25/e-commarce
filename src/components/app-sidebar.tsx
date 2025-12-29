@@ -14,16 +14,14 @@ import {
 } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation"; // 1. Import useSearchParams
 import Link from "next/link";
-
 
 // Menu items.
 const menu = [
   {
     title: "Filters",
     url: "#",
-   
   },
   {
     title: "Categories",
@@ -59,7 +57,13 @@ const menu = [
 
 export function AppSidebar() {
     const router = useRouter();
-    //console.log(menu.)
+     const searchParams = useSearchParams(); // 2. Get current params
+
+  // 3. Function to check if a specific menu item is active
+  const checkActive = (url: string) => {
+    // If url doesn't have query params, ignore
+    if (!url.includes("?")) return false;
+  }
   return (
     <Sidebar>
       <SidebarContent>
@@ -78,15 +82,25 @@ export function AppSidebar() {
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          {item.items.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild>
-                                <a href={subItem.url}>
-                                  <span>{subItem.title}</span>
-                                </a>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
+                          {item.items.map((subItem) => {
+                            // 4. Determine if this item is active
+                            const isActive = checkActive(subItem.url);
+
+                            return (
+                              <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton 
+                                  asChild 
+                                  isActive={isActive} 
+                                  className={isActive ? "bg-background-blue" : ""}
+                                >
+                                  {
+                                  <Link href={subItem.url}>
+                                    <span>{subItem.title}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            );
+                          })}
                         </SidebarMenuSub>
                       </CollapsibleContent>
                     </Collapsible>
