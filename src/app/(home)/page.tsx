@@ -24,6 +24,16 @@ export default function Home() {
 
     if (selectedCategory) return false;
     return product.category.toLowerCase() === selectedCategory.toLowerCase();
+
+    if(maxPriceParam){
+      if (product.price > maxPrice) {
+    return false;
+  }
+    }
+    if (minRatingParam) {
+  if (product.rating.rate < minRating) {
+    return false; 
+  }
   });
   return (
     <div className="space-y-6">
