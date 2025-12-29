@@ -43,16 +43,16 @@ export default function Home() {
 
    const handleAddToCart = (product: Product) => {
     addToCart(product);       
-    router.push("/cart");    
+    //router.push("/cart");    
   };
   return (
-    <div className="space-y-6">
+    <>
       <h1 className="text-3xl font-bold">Featured Products</h1>
       <div className="grid grid-cols-4 gap-6">
         {filterProducts.map((product: Product) => (
           <div
             key={product.id}
-            className="group border rounded-lg p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
+            className=" border rounded-lg p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
           >
             <div className="relative w-full h-64 mb-4 overflow-hidden rounded-md bg-gray-50 flex items-center justify-center">
               <img
@@ -76,7 +76,7 @@ export default function Home() {
 
               <div className="mt-2 flex items-center justify-between pt-4">
                 <span className="text-xl font-bold">${product.price}</span>
-                <button  onClick={() => handleAddToCart(product)}className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800 ">
+                <button  onClick={() => handleAddToCart(product)}className="bg-black text-white px-4 py-2 rounded-md cursor-pointer text-sm hover:bg-gray-800 ">
                   Add to Cart
                 </button>
               </div>
@@ -84,6 +84,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
