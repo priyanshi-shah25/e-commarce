@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Star } from "lucide-react"; // Make sure you have lucide-react installed
+import { Star } from "lucide-react"; 
 import type { Product, Rating } from "@types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProduct } from "@/lib/api";
@@ -29,11 +29,13 @@ export default function Home() {
       return false;
     }
     if (maxPriceParam) {
+      const maxPrice= parseFloat(maxPriceParam)
       if (product.price > maxPrice) {
         return false;
       }
     }
     if (minRatingParam) {
+      const minRating=parseFloat(minRatingParam)
       if (product.rating.rate < minRating) {
         return false;
       }
