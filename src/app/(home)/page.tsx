@@ -1,0 +1,69 @@
+"use client"
+import Image from "next/image";
+import { Star } from "lucide-react"; // Make sure you have lucide-react installed
+import type { Product, Rating } from "@types";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProduct } from "@/lib/api";
+import { useSearchParams } from "next/navigation";
+
+export default function Home() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProduct,
+  });
+  const searchParams = useSearchParams();
+   const selectedCategory = searchParams.get("category");
+  const maxPriceParam = searchParams.get("maxPrice");
+  const minRatingParam = searchParams.get("minRating");
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+
+  const filterProducts = data.filter((product: Product) => {
+
+    if (selectedCategory) return false;
+    return product.category.toLowerCase() === selectedCategory.toLowerCase();
+  });
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Featured Products</h1>
+      <div className="grid grid-cols-4 gap-6">
+        {filterProducts.map((product: Product) => (
+          <div
+            key={product.id}
+            className="group border rounded-lg p-4 bg-white hover:shadow-md transition-shadow flex flex-col"
+          >
+            <div className="relative w-full h-64 mb-4 overflow-hidden rounded-md bg-gray-50 flex items-center justify-center">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-full  p-4"
+              />
+            </div>
+
+            <div className="flex flex-col flex-1">
+              <span className="text-xl mb-1">{product.category}</span>
+              <h2 className="font-semibold text-lg mb-2" title={product.title}>
+                {product.title}
+              </h2>
+
+              <div className="flex items-center gap-1 mb-2">
+                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                <span className="text-sm ">{product.rating.rate}</span>
+                <span className="text-sm ">({product.rating.count})</span>
+              </div>
+
+              <div className="mt-2 flex items-center justify-between pt-4">
+                <span className="text-xl font-bold">${product.price}</span>
+                <button className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800 ">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
