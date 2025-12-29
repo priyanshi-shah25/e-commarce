@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { Star } from "lucide-react"; // Make sure you have lucide-react installed
 import type { Product, Rating } from "@types";
@@ -19,21 +19,21 @@ export default function Home() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-
   const filterProducts = data.filter((product: Product) => {
-
-    if (selectedCategory) return false;
-    return product.category.toLowerCase() === selectedCategory.toLowerCase();
-
-    if(maxPriceParam){
+    if (selectedCategory && product.category !== selectedCategory) {
+      return false;
+    }
+    if (maxPriceParam) {
       if (product.price > maxPrice) {
-    return false;
-  }
+        return false;
+      }
     }
     if (minRatingParam) {
-  if (product.rating.rate < minRating) {
-    return false; 
-  }
+      if (product.rating.rate < minRating) {
+        return false;
+      }
+    }
+    return true;
   });
   return (
     <div className="space-y-6">
