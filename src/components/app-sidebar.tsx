@@ -39,7 +39,7 @@ const menu = [
     title: "Price Range",
     url: "#",
     items: [
-      { title: "$0", url: "/?maxPrice=50" },
+      { title: "$50", url: "/?maxPrice=50" },
       { title: "$154", url: "/?maxPrice=154" },
       { title: "$919", url: "/?maxPrice=919" },
       { title: "$1000", url: "/?maxPrice=1000" },
@@ -49,19 +49,23 @@ const menu = [
     title: "Minimum Rating",
     url: "#",
     items: [
-      { title: "✨🧨✨✨4+ Star", url: "/?minRating=4" },
-      { title: "🎇🎆🎈3+ Star", url: "/?minRating=3" },
-      { title: "🎁🎗2+ Star", url: "/?minRating=2" },
-      { title: "✨1+ Star", url: "/?minRating=1" },
+      { title: "⭐⭐⭐⭐4+ Star", url: "/?minRating=4" },
+      { title: "⭐⭐⭐3+ Star", url: "/?minRating=3" },
+      { title: "⭐⭐2+ Star", url: "/?minRating=2" },
+      { title: "⭐1+ Star", url: "/?minRating=1" },
     ],
   },
 ];
 
 export function AppSidebar() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const checkActive = (url: string) => {
-    if (url.includes("?")) return false;
+  const query = url.split("?")[1];
+
+  const [key, value] = query.split("=");
+  return searchParams.get(key) === value;
   };
 
   return (
@@ -92,7 +96,7 @@ export function AppSidebar() {
                                   isActive={isActive}
                                   className={
                                     isActive
-                                      ? "bg-blue-600 text-white font-bold"
+                                      ? " font-bold"
                                       : ""
                                   }
                                 >

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/product.strore";
 import Link from "next/link";
 
@@ -32,6 +33,7 @@ export default function CartPage() {
               <h3 className="font-semibold">{product.title}</h3>
               <p className="text-gray-500">${product.price}</p>
             </div>
+            <Button>Proceed to Buy </Button>
           </div>
         ))}
       </div>
