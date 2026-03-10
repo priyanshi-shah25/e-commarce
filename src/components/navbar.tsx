@@ -14,7 +14,7 @@ export function Navbar() {
           <Store /> <span>E-Store</span>
         </Link>
       </div>
- <button>hello</button>
+ <button>hellov  frfrfgrfrf</button>
       <div className="flex items-center gap-4">
         <button className="p-2 hover:bg-accent rounded-full ">
           <Heart />
