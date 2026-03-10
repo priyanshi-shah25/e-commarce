@@ -20,6 +20,7 @@ import {
 import { Button } from "./ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 const menu = [
   {
     title: "Filters",
@@ -57,7 +58,7 @@ const menu = [
   },
 ];
 
-export function AppSidebar() {
+function AppSidebarContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -130,5 +131,13 @@ export function AppSidebar() {
         </Button>
       </SidebarContent>
     </Sidebar>
+  );
+}
+
+export function AppSidebar() {
+  return (
+    <Suspense fallback={null}>
+      <AppSidebarContent />
+    </Suspense>
   );
 }

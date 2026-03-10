@@ -1,15 +1,15 @@
 "use client";
-import Image from "next/image";
-import { Star } from "lucide-react"; 
-import type { Product, Rating } from "@types";
+import { Star } from "lucide-react";
+import { Suspense } from "react";
+
 import { useQuery } from "@tanstack/react-query";
 import { fetchProduct } from "@/lib/api";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/store/product.strore";
+import { Product } from "@/types/product";
 
 
-export default function Home() {
-  const router = useRouter();
+function HomeContent() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProduct,
@@ -87,5 +87,13 @@ export default function Home() {
         ))}
       </div>
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <HomeContent />
+    </Suspense>
   );
 }
