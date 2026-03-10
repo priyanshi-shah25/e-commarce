@@ -81,6 +81,7 @@ function HomeContent() {
                 <button  onClick={() => handleAddToCart(product)}className="bg-black text-white px-4 py-2 rounded-md cursor-pointer text-sm hover:bg-gray-800 ">
                   Add to Cart
                 </button>
+              
               </div>
             </div>
           </div>

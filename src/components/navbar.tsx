@@ -14,11 +14,12 @@ export function Navbar() {
           <Store /> <span>E-Store</span>
         </Link>
       </div>
-
+ <button>hello</button>
       <div className="flex items-center gap-4">
         <button className="p-2 hover:bg-accent rounded-full ">
           <Heart />
         </button>
+         
         <Link href="/cart"  className="p-2 hover:bg-accent rounded-full ">
           <ShoppingCart />
           {cartCount > 0 &&  (
